@@ -17,7 +17,7 @@
 #define VAULT_PW_KEY_SIZE   64
 #define VAULT_MK_SIZE       ((size_t)sizeof(XtsKey))
 #define VAULT_MK_CHECK_SIZE 16
-#define VAULT_PW_MIN_LEN    6
+#define VAULT_PW_MIN_LEN    4
 #define VAULT_PW_MAX_LEN    64
 
 /* Mifare Classic 1K: 16 sectors, 47 data blocks (block 0 is manufacturer data). */

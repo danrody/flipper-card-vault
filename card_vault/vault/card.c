@@ -50,23 +50,28 @@ static Step classify(MfClassicError err) {
 }
 
 /* Authenticated block read. A card stays silent after a wrong key, which the
- * stack reports as Timeout - same as "no card". Disambiguate by checking the
- * card is still in the field: present + repeated silence = wrong key. */
+ * stack reports as Timeout - same as "no card" or a card still settling in
+ * the field. Only call it a wrong key when the card keeps answering anti-
+ * collision and nonce requests but auth times out on every retry. */
+#define WRONG_KEY_CONFIRMATIONS 3
+
 static Step read_step(
     Nfc* nfc,
     uint8_t block,
     const MfClassicKey* key,
     MfClassicKeyType type,
     MfClassicBlock* blk) {
-    for(int attempt = 0; attempt < 2; attempt++) {
+    for(int attempt = 0; attempt < WRONG_KEY_CONFIRMATIONS; attempt++) {
         MfClassicKey k = *key;
         MfClassicError err = mf_classic_poller_sync_read_block(nfc, block, &k, type, blk);
         if(err == MfClassicErrorNone) return StepOk;
         if(err == MfClassicErrorAuth) return StepFatal;
         if(err != MfClassicErrorTimeout) return StepRetry;
-        MfClassicType card_type;
-        if(mf_classic_poller_sync_detect_type(nfc, &card_type) != MfClassicErrorNone)
+
+        MfClassicNt nt;
+        if(mf_classic_poller_sync_collect_nt(nfc, block, type, &nt) != MfClassicErrorNone)
             return StepRetry;
+        furi_delay_ms(30);
     }
     return StepFatal;
 }

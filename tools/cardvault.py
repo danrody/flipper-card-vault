@@ -221,7 +221,7 @@ def cmd_fetch_key(a) -> int:
         return 2
     os.chmod(a.out, 0o600)
     print(f"Saved recovery key for vault {rk.vault_id.hex()} to {a.out}")
-    print("Now press OK on the Flipper to erase its copy, and store this file offline.")
+    print("Now press Erase (right button) on the Flipper to shred its copy, and store this file offline.")
     return 0
 
 

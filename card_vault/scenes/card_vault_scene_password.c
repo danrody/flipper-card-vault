@@ -15,7 +15,7 @@ static void setup_input(CardVaultApp* app) {
     } else if(repeat) {
         header = "Repeat password";
     } else {
-        header = "New password (min 6)";
+        header = "New password (min 4)";
     }
 
     text_input_reset(app->text_input);
