@@ -1,0 +1,13 @@
+App(
+    appid="card_vault",
+    name="Card Vault",
+    apptype=FlipperAppType.EXTERNAL,
+    entry_point="card_vault_app",
+    requires=["gui", "storage", "notification"],
+    stack_size=4 * 1024,
+    fap_category="Tools",
+    fap_icon="images/card_vault_10px.png",
+    fap_version="1.0",
+    fap_author="danrody",
+    fap_description="Encrypted USB vault on SD, unlocked by password + Mifare Classic card",
+)

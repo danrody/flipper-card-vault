@@ -1,0 +1,8 @@
+ADD_SCENE(card_vault, start, Start)
+ADD_SCENE(card_vault, size, Size)
+ADD_SCENE(card_vault, password, Password)
+ADD_SCENE(card_vault, work, Work)
+ADD_SCENE(card_vault, message, Message)
+ADD_SCENE(card_vault, recovery, Recovery)
+ADD_SCENE(card_vault, confirm, Confirm)
+ADD_SCENE(card_vault, unlocked, Unlocked)
